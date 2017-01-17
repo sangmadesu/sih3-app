@@ -1,9 +1,11 @@
 <?php
 
+// home
 Route::get('/', function () {
     return view('welcome');
 });
 
+// get query string in public ip
 Route::get('/{params}', function ($params) {
 	
 	function strmerge(&$output, $item, $separator = "") {
@@ -50,5 +52,14 @@ Route::get('/{params}', function ($params) {
 	$HttpLog = new App\HttpLog;
 	$HttpLog->parameter = $s_args;
 	$HttpLog->sender = $sender;
-	$HttpLog->save();
+
+	if ($HttpLog->save()) {
+	
+		echo "data logger success sending to database";
+	
+	} else {
+	
+		echo "data not sending to database";
+	
+	}
 });
